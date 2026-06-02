@@ -65,6 +65,14 @@ async def update_user_plan(user_id, plan):
         await db.execute("UPDATE users SET plan = ? WHERE id = ?", (plan, user_id))
         await db.commit()
 
+async def buy_plan_and_add_points(user_id, plan_name, points_to_add):
+    async with aiosqlite.connect("bot_data.db") as db:
+        # Planı yenilə
+        await db.execute("UPDATE users SET plan = ? WHERE id = ?", (plan_name, user_id))
+        # Xalları əlavə et
+        await db.execute("UPDATE users SET points = points + ? WHERE id = ?", (points_to_add, user_id))
+        await db.commit()
+
 # db.py-də zər limitini idarə etmək üçün:
 async def get_dice_count(user_id):
     async with aiosqlite.connect("bot_data.db") as db:

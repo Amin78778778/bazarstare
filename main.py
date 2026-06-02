@@ -1,10 +1,10 @@
-import asyncio
 import os
 from aiogram import Bot, Dispatcher
-import db  # db.py faylının yanında olduğunuza əmin olun
+import asyncio
+import db
 
-# Tokeni Railway-in Variables hissəsindən avtomatik oxuyur
-TOKEN = os.getenv("8853785671:AAF6KXLRBKsif9mnUXUhBJu5-S8gupXBGRQ")
+# Tokeni buraya birbaşa yapışdır (müvəqqəti olaraq)
+TOKEN = "8853785671:AAF6KXLRBKsif9mnUXUhBJu5-S8gupXBGRQ"
 
 bot = Bot(token=TOKEN)
 dp = Dispatcher()

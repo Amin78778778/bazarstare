@@ -27,3 +27,7 @@ if __name__ == "__main__":
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         print("Bot dayandırıldı.")
+
+@dp.message()
+async def echo_handler(message: types.Message):
+    await message.answer("Salam! Mən işləyirəm.")

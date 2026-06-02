@@ -55,3 +55,17 @@ if __name__ == "__main__":
         asyncio.run(main())
     except KeyboardInterrupt:
         print("Bot dayandırıldı.")
+
+# main.py faylına əlavə edin:
+@dp.message(F.successful_payment)
+async def on_successful_payment(message: Message):
+    payload = message.successful_payment.invoice_payload
+    user_id = message.from_user.id
+    
+    # Payload-dan hansı planın alındığını bilirik (məsələn: buy_bronz)
+    plan_name = payload.split("_")[1] 
+    
+    # db.py faylınızda planı aktivləşdirən funksiyanızı çağırın
+    # await db.update_user_plan(user_id, plan_name) 
+    
+    await message.answer(f"✅ Ödəniş uğurlu oldu! {plan_name.upper()} planınız aktivləşdi.")

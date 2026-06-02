@@ -2,7 +2,7 @@ import asyncpg
 import os
 
 # Railway-də 'Variables' hissəsində DATABASE_URL-i əlavə etməyi unutmayın
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("postgresql://postgres:IhlnSLcZaVFJnrGjUXipIhMwxlfXPYyh@postgres.railway.internal:5432/railway")
 
 async def get_connection():
     return await asyncpg.connect(DATABASE_URL)

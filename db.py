@@ -110,3 +110,21 @@ async def get_all_user_ids():
         async with db.execute("SELECT id FROM users") as cursor:
             rows = await cursor.fetchall()
             return [row[0] for row in rows]
+
+@dp.message(F.successful_payment)
+async def on_successful_payment(message: Message):
+    payload = message.successful_payment.invoice_payload # Məsələn: buy_bronz
+    user_id = message.from_user.id
+    
+    # Plan adını və veriləcək xalı təyin edirik
+    plans_info = {
+        "buy_bronz": {"name": "Bronz", "points": 100},
+        "buy_silver": {"name": "Gümüş", "points": 150},
+        "buy_gold": {"name": "Qızıl", "points": 250}
+    }
+    
+    info = plans_info.get(payload)
+    if info:
+        # Bazadakı yeni funksiyamızı çağırırıq
+        await db.buy_plan_and_add_points(user_id, info["name"], info["points"])
+        await message.answer(f"✅ Təbriklər! {info['name']} planınız aktivləşdi və balansınıza {info['points']} xal əlavə edildi.")
